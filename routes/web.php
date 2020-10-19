@@ -16,3 +16,5 @@ Route::get('/', function () {
 });
 
 Route::get('index', 'HomeController@index');
+
+Auth::routes();
