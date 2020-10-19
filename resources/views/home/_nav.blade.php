@@ -27,15 +27,15 @@
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#" onclick="logout();return false;">登出</a>
                             <a class="dropdown-item" href="#">Another action</a>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                     </div>
                     @else
                         @if(Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">注册</a>
+                        <li class="nav-item" onclick="logout">
+{{--                            <a class="nav-link" href="{{ route('register') }}">注册</a>--}}
                         </li>
                         @endif
                         <li class="nav-item">
@@ -48,3 +48,19 @@
         </div>
     </div>
 </nav>
+<script !src="">
+    function logout() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "{{ route('logout') }}",
+            type: "post",
+            success: function() {
+                window.location.href = "{{ route('index') }}"
+            }
+        })
+    }
+</script>
