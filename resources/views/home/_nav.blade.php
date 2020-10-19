@@ -19,12 +19,31 @@
                 <li class="nav-item">
                     <a class="nav-link" href="contact.html">Contact</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('register') }}">注册</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">登录</a>
-                </li>
+                @if(Route::has('login'))
+                    @auth
+                    <div class="dropdown">
+                        <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ Auth::user()->name }}
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                    @else
+                        @if(Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">注册</a>
+                        </li>
+                        @endif
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">登录</a>
+                        </li>
+                    @endauth
+                @endif
+
             </ul>
         </div>
     </div>
