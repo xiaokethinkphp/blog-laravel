@@ -14,6 +14,7 @@
             </div>
         </div>
     </header>
+@endsection
 @section('container')
 <div class="container">
     <div class="row justify-content-center">
