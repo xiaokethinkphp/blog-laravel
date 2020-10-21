@@ -1,7 +1,7 @@
 @extends('home.default')
 @section('title', '写文章')
 @section('header')
-    <header class="masthead" style="background-image: url('img/home-bg.jpg');">
+    <header class="masthead" style="background-image: url('{{ asset('img/home-bg.jpg')}}') ;">
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
@@ -24,12 +24,12 @@
                     <div class="card-header">写文章</div>
 
                     <div class="card-body">
-                        <form action="">
+                        <form action="1" method="post">
                             {{--文章标题--}}
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-sm-2">文章标题</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="title">
                                 </div>
                             </div>
                             {{--文章分类--}}
@@ -62,21 +62,20 @@
 @endsection
 
 @section('js')
-    <script src="{{ mix('js/wang.js') }}"></script>
-{{--    <script>--}}
-{{--        const editor = new Editor('#div1')--}}
-{{--        editor.config.height = 500--}}
-{{--        // 或者 const editor = new E( document.getElementById('div1') )--}}
-{{--        editor.create()--}}
-{{--    </script>--}}
-    <script !src="">
-        Editor
-            .create( document.querySelector( '#div1' ) )
-            .then( editor => {
-                console.log( editor );
-            } )
-            .catch( error => {
-                console.error( error );
-            } );
+    <script src="{{ asset('js/wang.js') }}"></script>
+    <script>
+        const editor = new Editor('#div1')
+        // 或者 const editor = new E( document.getElementById('div1') )
+        editor.create()
     </script>
+{{--    <script !src="">--}}
+{{--        Editor--}}
+{{--            .create( document.querySelector( '#div1' ) )--}}
+{{--            .then( editor => {--}}
+{{--                console.log( editor );--}}
+{{--            } )--}}
+{{--            .catch( error => {--}}
+{{--                console.error( error );--}}
+{{--            } );--}}
+{{--    </script>--}}
 @endsection
