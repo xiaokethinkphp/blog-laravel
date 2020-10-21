@@ -15,6 +15,7 @@
         </div>
     </header>
 @endsection
+
 @section('container')
     <div class="container">
         <div class="row justify-content-center">
@@ -48,7 +49,8 @@
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-sm-2">文章内容</label>
                                 <div class="col-sm-10">
-                                    <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
+{{--                                    <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>--}}
+                                    <div id="div1"></div>
                                 </div>
                             </div>
                         </form>
@@ -57,4 +59,24 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script src="{{ mix('js/wang.js') }}"></script>
+{{--    <script>--}}
+{{--        const editor = new Editor('#div1')--}}
+{{--        editor.config.height = 500--}}
+{{--        // 或者 const editor = new E( document.getElementById('div1') )--}}
+{{--        editor.create()--}}
+{{--    </script>--}}
+    <script !src="">
+        Editor
+            .create( document.querySelector( '#div1' ) )
+            .then( editor => {
+                console.log( editor );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
 @endsection
