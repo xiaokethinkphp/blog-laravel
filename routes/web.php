@@ -20,3 +20,4 @@ Auth::routes(['verify' => true]);
 
 
 Route::get('article/create', 'ArticleController@create')->middleware('auth')->name('article.create');
+Route::post('article/upload', 'ArticleController@upload')->name('article.upload');

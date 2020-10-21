@@ -14,4 +14,20 @@ class ArticleController extends Controller
     {
         return view('article.create');
     }
+
+    /**
+     * 接受富文编辑器图片上传
+     */
+    public function upload(Request $request)
+    {
+        $urls = [];
+
+        foreach ($request->file() as $file) {
+            $urls[] = Storage::url($file->store('article', 'public'));
+        }
+        return [
+            'errno' =>  0,
+            'data'  =>  $urls
+        ];
+    }
 }

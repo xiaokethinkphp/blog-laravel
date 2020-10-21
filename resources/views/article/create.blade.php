@@ -65,6 +65,10 @@
     <script src="{{ asset('js/wang.js') }}"></script>
     <script>
         const editor = new Editor('#div1')
+        editor.config.uploadImgHeaders = {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        editor.config.uploadImgServer = "{{ route('article.upload') }}"
         // 或者 const editor = new E( document.getElementById('div1') )
         editor.create()
     </script>
