@@ -50,4 +50,12 @@ class ArticleController extends Controller
             'data'  =>  $urls
         ];
     }
+    /**
+     * 个人文章列表
+     */
+    public function lst($user_id)
+    {
+        $articles = Article::where('user_id', $user_id)->paginate();
+        return view('article.lst', compact('articles'));
+    }
 }
