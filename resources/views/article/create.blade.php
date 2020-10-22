@@ -24,7 +24,8 @@
                     <div class="card-header">写文章</div>
 
                     <div class="card-body">
-                        <form action="1" method="post">
+                        <form action="{{ route('article.store') }}" method="post">
+                            {{ csrf_field() }}
                             {{--文章标题--}}
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-sm-2">文章标题</label>
@@ -36,12 +37,12 @@
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-sm-2">文章标题</label>
                                 <div class="col-sm-10">
-                                    <select name="" id="" class="custom-select">
-                                        <option value="">1</option>
-                                        <option value="">1</option>
-                                        <option value="">1</option>
-                                        <option value="">1</option>
-                                        <option value="">1</option>
+                                    <select name="cate_id" id="" class="custom-select">
+                                        <option value="1">前端</option>
+                                        <option value="2">后端</option>
+                                        <option value="3">数据库</option>
+                                        <option value="4">服务器</option>
+                                        <option value="5">运维</option>
                                     </select>
                                 </div>
                             </div>
@@ -49,10 +50,11 @@
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-sm-2">文章内容</label>
                                 <div class="col-sm-10">
-{{--                                    <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>--}}
-                                    <div id="div1"></div>
+                                    <textarea name="contents" id="text1" cols="30" rows="10" class="form-control" style="display: none"></textarea>
+                                    <div id="div1" name="contents"></div>
                                 </div>
                             </div>
+                            <button type="submit" class="btn-primary">提交</button>
                         </form>
                     </div>
                 </div>
@@ -69,6 +71,11 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
         editor.config.uploadImgServer = "{{ route('article.upload') }}"
+        const $text1 = $('#text1')
+        editor.config.onchange = function (html) {
+            // 第二步，监控变化，同步更新到 textarea
+            $text1.val(html)
+        }
         // 或者 const editor = new E( document.getElementById('div1') )
         editor.create()
     </script>

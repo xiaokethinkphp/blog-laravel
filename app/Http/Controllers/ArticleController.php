@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,6 +14,18 @@ class ArticleController extends Controller
     public function create()
     {
         return view('article.create');
+    }
+    /**
+     * 存储文章
+     */
+    public function store(Request $request)
+    {
+        $article = new Article();
+        $article->title = $request->title;
+        $article->user_id = auth()->id();
+        $article->cate_id = $request->cate_id;
+        $article->contents = $request->contents;
+        $article->save();
     }
 
     /**

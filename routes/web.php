@@ -18,6 +18,7 @@ Route::get('dd', 'HomeController@hd')->middleware('verified');;
 
 Auth::routes(['verify' => true]);
 
-
+/* 文章 */
 Route::get('article/create', 'ArticleController@create')->middleware('auth')->name('article.create');
+Route::post('article', 'ArticleController@store')->middleware('auth')->name('article.store');
 Route::post('article/upload', 'ArticleController@upload')->name('article.upload');
