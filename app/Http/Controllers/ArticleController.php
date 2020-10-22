@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Cate;
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,7 +17,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('article.create');
+        $cates = Cate::all();
+        return view('article.create',compact('cates'));
     }
 
     /**
@@ -55,7 +57,7 @@ class ArticleController extends Controller
      */
     public function lst($user_id)
     {
-        $articles = Article::where('user_id', $user_id)->paginate();
+        $articles = Article::where('user_id', $user_id)->with('cate:id,name')->paginate();
         return view('article.lst', compact('articles'));
     }
 }

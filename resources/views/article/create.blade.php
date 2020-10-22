@@ -42,11 +42,9 @@
                                 <div class="col-sm-10">
                                     <select name="cate_id" id="" class="custom-select">
                                         <option value="">——请选择分类——</option>
-                                        <option value="1" {{ old('cate_id')==1? "selected":"" }}>前端</option>
-                                        <option value="2" {{ old('cate_id')==2? "selected":"" }}>后端</option>
-                                        <option value="3" {{ old('cate_id')==3? "selected":"" }}>数据库</option>
-                                        <option value="4" {{ old('cate_id')==4? "selected":"" }}>服务器</option>
-                                        <option value="5" {{ old('cate_id')==5? "selected":"" }}>运维</option>
+                                        @foreach($cates as $cate)
+                                            <option value="{{ $cate->id }}" {{ old('cate_id')==$cate->id? "selected":"" }}>{{ $cate->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

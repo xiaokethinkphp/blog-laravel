@@ -31,15 +31,17 @@
                                 <th scope="col">标题</th>
                                 <th scope="col">分类</th>
                                 <th scope="col">作者</th>
+                                <th scope="col">发布时间</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($articles as $article)
                                 <tr>
                                     <th scope="row">{{ $article->id }}</th>
-                                    <td>{{ $article->title }}</td>
-                                    <td>{{ $article->cate_id }}</td>
+                                    <td><a href="">{{ $article->title }}</a></td>
+                                    <td>{{ $article->cate['name'] }}</td>
                                     <td>{{ auth()->user()->name }}</td>
+                                    <td>{{ $article->created_at }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
