@@ -30,30 +30,44 @@
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-sm-2">文章标题</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="title">
+                                    <input type="text" class="form-control" name="title" value="{{ old('title') }}">
                                 </div>
                             </div>
+                            @error('title')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                             {{--文章分类--}}
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-sm-2">文章标题</label>
                                 <div class="col-sm-10">
                                     <select name="cate_id" id="" class="custom-select">
-                                        <option value="1">前端</option>
-                                        <option value="2">后端</option>
-                                        <option value="3">数据库</option>
-                                        <option value="4">服务器</option>
-                                        <option value="5">运维</option>
+                                        <option value="">——请选择分类——</option>
+                                        <option value="1" {{ old('cate_id')==1? "selected":"" }}>前端</option>
+                                        <option value="2" {{ old('cate_id')==2? "selected":"" }}>后端</option>
+                                        <option value="3" {{ old('cate_id')==3? "selected":"" }}>数据库</option>
+                                        <option value="4" {{ old('cate_id')==4? "selected":"" }}>服务器</option>
+                                        <option value="5" {{ old('cate_id')==5? "selected":"" }}>运维</option>
                                     </select>
                                 </div>
                             </div>
+                            @error('cate_id')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                             {{--文章内容--}}
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-sm-2">文章内容</label>
                                 <div class="col-sm-10">
-                                    <textarea name="contents" id="text1" cols="30" rows="10" class="form-control" style="display: none"></textarea>
-                                    <div id="div1" name="contents"></div>
+                                    <textarea name="contents" id="text1" cols="30" rows="10" class="form-control" style="display: none">
+                                        {!! old('contents') !!}
+                                    </textarea>
+                                    <div id="div1" name="contents">
+{{--                                        {!! old('contents') !!}--}}
+                                    </div>
                                 </div>
                             </div>
+                            @error('contents')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                             <button type="submit" class="btn-primary">提交</button>
                         </form>
                     </div>
@@ -78,6 +92,7 @@
         }
         // 或者 const editor = new E( document.getElementById('div1') )
         editor.create()
+        editor.txt.html("{!! old('contents') !!}")
     </script>
 {{--    <script !src="">--}}
 {{--        Editor--}}

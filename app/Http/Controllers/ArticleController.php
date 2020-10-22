@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Http\Requests\ArticleRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
@@ -15,10 +18,13 @@ class ArticleController extends Controller
     {
         return view('article.create');
     }
+
     /**
      * 存储文章
+     * @param ArticleRequest $request
+     * @return RedirectResponse|Redirector
      */
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
         $article = new Article();
         $article->title = $request->title;
@@ -26,6 +32,7 @@ class ArticleController extends Controller
         $article->cate_id = $request->cate_id;
         $article->contents = $request->contents;
         $article->save();
+        return redirect(route('index'));
     }
 
     /**

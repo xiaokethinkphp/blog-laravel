@@ -31,4 +31,9 @@ class HomeController extends Controller
         dd(11);
     }
 
+    public function img()
+    {
+        return view('img');
+    }
+
 }
