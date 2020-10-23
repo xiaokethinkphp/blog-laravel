@@ -52,12 +52,25 @@ class ArticleController extends Controller
             'data'  =>  $urls
         ];
     }
+
     /**
      * 个人文章列表
+     * @param $user_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function lst($user_id)
     {
         $articles = Article::where('user_id', $user_id)->with('cate:id,name')->paginate();
         return view('article.lst', compact('articles'));
+    }
+
+    /**
+     * 修改文章界面
+     * @param $user_id
+     * @param $id
+     */
+    public function edit($user_id, $id)
+    {
+        dump($user_id.'****************'.$id);
     }
 }
