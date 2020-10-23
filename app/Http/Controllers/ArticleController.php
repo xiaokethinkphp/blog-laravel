@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Cate;
 use App\Http\Requests\ArticleRequest;
+use App\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -55,22 +56,23 @@ class ArticleController extends Controller
 
     /**
      * 个人文章列表
-     * @param $user_id
+     * @param User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function lst($user_id)
+    public function lst(User $user)
     {
-        $articles = Article::where('user_id', $user_id)->with('cate:id,name')->paginate();
+        $articles = $user->articles()->paginate();
         return view('article.lst', compact('articles'));
     }
 
     /**
      * 修改文章界面
-     * @param $user_id
-     * @param $id
+     * @param $user
+     * @param $article
      */
-    public function edit($user_id, $id)
+    public function edit(User $user, Article $article)
     {
-        dump($user_id.'****************'.$id);
+        dump($user->id);
+        dump($article->id);
     }
 }

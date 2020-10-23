@@ -45,8 +45,8 @@
                                     <td>{{ $article->created_at->format('Y年m月d日') }}</td>
                                     <td>
                                         <div class="btn-group mr-2 btn-group-sm" role="group" aria-label="First group">
-                                            <a href="{{ route('article.edit', ['user_id' => auth()->id(), 'id' => $article->id]) }}" class="btn btn-primary">修改</a>
-                                            <a href="{{ route('article.destroy', ['user_id' => auth()->id(), 'id' => $article->id]) }}" class="btn btn-danger">删除</a>
+                                            <a href="{{ route('article.edit', ['user' => auth()->id(), 'article' => $article->id]) }}" class="btn btn-primary">修改</a>
+                                            <a href="{{ route('article.destroy', ['user' => auth()->id(), 'article' => $article->id]) }}" class="btn btn-danger">删除</a>
                                         </div>
                                     </td>
                                 </tr>

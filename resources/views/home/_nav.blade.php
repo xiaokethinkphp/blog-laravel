@@ -30,7 +30,7 @@
                             <a class="dropdown-item" href="#" onclick="logout();return false;">登出</a>
                             <a class="dropdown-item" href="{{ route('password.request') }}">修改密码</a>
                             <a class="dropdown-item" href="{{ route('article.create') }}">写文章</a>
-                            <a class="dropdown-item" href="{{ route('article.lst', ['user_id'=>auth()->id()]) }}">文章列表</a>
+                            <a class="dropdown-item" href="{{ route('article.lst', ['user'=>auth()->id()]) }}">文章列表</a>
                         </div>
                     </div>
                     @else

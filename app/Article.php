@@ -13,4 +13,11 @@ class Article extends Model
     {
         return $this->belongsTo(Cate::class);
     }
+    /**
+     * 一篇文章属于一个用户
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

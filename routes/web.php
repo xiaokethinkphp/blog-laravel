@@ -23,7 +23,7 @@ Auth::routes(['verify' => true]);
 Route::get('article/create', 'ArticleController@create')->middleware('auth')->name('article.create');
 Route::post('article', 'ArticleController@store')->middleware('auth')->name('article.store');
 Route::post('article/upload', 'ArticleController@upload')->name('article.upload');
-Route::get('user/{user_id}/article', 'ArticleController@lst')->middleware('auth')->name('article.lst');
+Route::get('user/{user}/article', 'ArticleController@lst')->middleware('auth')->name('article.lst');
 // 修改文章界面
-Route::get('user/{user_id}/article/{id}/edit', 'ArticleController@edit')->middleware('auth')->name('article.edit');
-Route::get('user/{user_id}/article/{id}', 'ArticleController@destroy')->middleware('auth')->name('article.destroy');
+Route::get('user/{user}/article/{article}/edit', 'ArticleController@edit')->middleware('auth')->name('article.edit');
+Route::get('user/{user}/article/{article}', 'ArticleController@destroy')->middleware('auth')->name('article.destroy');
