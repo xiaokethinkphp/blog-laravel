@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
@@ -61,8 +62,10 @@ class ArticleController extends Controller
      */
     public function lst(User $user)
     {
-        $articles = $user->articles()->paginate();
-        return view('article.lst', compact('articles'));
+        if (Gate::authorize('lst')) {
+            $articles = $user->articles()->paginate();
+            return view('article.lst', compact('articles'));
+        }
     }
 
     /**
@@ -72,7 +75,17 @@ class ArticleController extends Controller
      */
     public function edit(User $user, Article $article)
     {
+        if (Gate::authorize('edit-or-destroy')) {
+            return 'ok';
+        } else {
+            return 'no';
+        }
         dump($user->id);
         dump($article->id);
+    }
+
+    public function destory(User $user, Article $article)
+    {
+
     }
 }
