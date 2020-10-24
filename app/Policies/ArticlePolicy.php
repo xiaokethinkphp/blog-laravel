@@ -30,7 +30,7 @@ class ArticlePolicy
                 : Response::deny('无法查看其它用户信息');
     }
 
-    public function editOrDestroy(User $user, Article $article)
+    public function write(User $user, Article $article)
     {
         $user_param = request()->route()->user;
         return ($user_param == $user && $user->id == $article->user_id)
@@ -38,11 +38,4 @@ class ArticlePolicy
                 : Response::deny('无法操作该文章');
     }
 
-    public function update(User $user, Article $article)
-    {
-        $user_param = request()->route()->user;
-        return ($user_param == $user && $user->id == $article->user_id)
-            ? Response::allow()
-            : Response::deny('无法操作该文章');
-    }
 }

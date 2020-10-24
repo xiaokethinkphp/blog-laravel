@@ -1,7 +1,7 @@
 @extends('home.default')
 @section('title', '写文章')
 @section('header')
-    <header class="masthead" style="background-image: url('{{ asset('img/home-bg.jpg')}}') ;">
+    @routes<header class="masthead" style="background-image: url('{{ asset('img/home-bg.jpg')}}') ;">
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
@@ -46,7 +46,7 @@
                                     <td>
                                         <div class="btn-group mr-2 btn-group-sm" role="group" aria-label="First group">
                                             <a href="{{ route('article.edit', ['user' => auth()->id(), 'article' => $article->id]) }}" class="btn btn-primary">修改</a>
-                                            <a href="{{ route('article.destroy', ['user' => auth()->id(), 'article' => $article->id]) }}" class="btn btn-danger">删除</a>
+                                            <button class="btn btn-danger" onclick="destroy('{{auth()->id()}}',{{$article->id}})">删除</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -88,4 +88,27 @@
 {{--                console.error( error );--}}
 {{--            } );--}}
 {{--    </script>--}}
+    <script !src="">
+        function destroy(user, article) {
+            let cf = confirm("确认删除该文章？？");
+            if (cf) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: route('article.destroy',{user:user,article:article}),
+//                     url: "/user/"+user+"/article/"+article,
+                    type: "delete",
+                    // async:false,
+                    success: function() {
+                        window.location.href = route('article.lst',user)
+                    }
+                })
+            } else {
+                return false;
+            }
+        }
+    </script>
 @endsection

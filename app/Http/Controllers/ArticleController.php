@@ -78,7 +78,7 @@ class ArticleController extends Controller
      */
     public function edit(User $user, Article $article)
     {
-        $this->authorize('editOrDestroy', $article);
+        $this->authorize('write', $article);
         $cates = Cate::all();
         return view('article.edit', compact('article', 'cates'));
     }
@@ -88,7 +88,7 @@ class ArticleController extends Controller
      */
     public function update(ArticleRequest $request, User $user, Article $article)
     {
-        $this->authorize('update',$article);
+        $this->authorize('write',$article);
         $article->title = $request->title;
         $article->user_id = auth()->id();
         $article->cate_id = $request->cate_id;
@@ -101,8 +101,9 @@ class ArticleController extends Controller
      * @param Article $article
      */
 
-    public function destory(User $user, Article $article)
+    public function destroy(User $user, Article $article)
     {
-
+        $this->authorize('write', $article);
+        $article->delete();
     }
 }
