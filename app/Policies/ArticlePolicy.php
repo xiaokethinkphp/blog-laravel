@@ -6,6 +6,7 @@ use App\Article;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Request;
 
 class ArticlePolicy
 {
@@ -35,5 +36,13 @@ class ArticlePolicy
         return ($user_param == $user && $user->id == $article->user_id)
             ? Response::allow()
                 : Response::deny('无法操作该文章');
+    }
+
+    public function update(User $user, Article $article)
+    {
+        $user_param = request()->route()->user;
+        return ($user_param == $user && $user->id == $article->user_id)
+            ? Response::allow()
+            : Response::deny('无法操作该文章');
     }
 }

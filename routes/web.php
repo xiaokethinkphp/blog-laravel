@@ -26,4 +26,5 @@ Route::post('article/upload', 'ArticleController@upload')->name('article.upload'
 Route::get('user/{user}/article', 'ArticleController@lst')->middleware('auth')->name('article.lst');
 // 修改文章界面
 Route::get('user/{user}/article/{article}/edit', 'ArticleController@edit')->middleware('auth')->name('article.edit');
+Route::put('user/{user}/article/{article}', 'ArticleController@update')->middleware('auth')->name('article.update');
 Route::get('user/{user}/article/{article}', 'ArticleController@destroy')->middleware('auth')->name('article.destroy');

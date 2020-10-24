@@ -22,17 +22,21 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">写文章</div>
-
+                    @if(session()->exists('title'))
+                        session存在
+                    @endif
                     <div class="card-body">
-                        <form action="{{ route('article.store') }}" method="post">
+                        <form action="{{ route('article.update',['user'=>auth()->id(), 'article'=>$article->id]) }}" method="post">
+                            @method('put')
                             {{ csrf_field() }}
                             {{--文章标题--}}
                             <div class="form-group row">
                                 <label for="" class="col-form-label col-sm-2">文章标题</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="title" value="{{ old('title')??$article->title }}">
+                                    <input type="text" class="form-control" name="title" value="{{ old('title', $article->title) }}">
                                 </div>
                             </div>
+{{--                            <input type="hidden" name="id" value="{{ $article->id }}">--}}
                             @error('title')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -44,11 +48,7 @@
                                         <option value="">——请选择分类——</option>
                                         @foreach($cates as $cate)
                                             <option value="{{ $cate->id }}"
-                                                @if(old('cate_id'))
-                                                    {{ old('cate_id')==$cate->id? "selected":"" }}
-                                                @else
-                                                   {{ $article->cate_id==$cate->id? "selected":"" }}
-                                               @endif
+                                                    {{ old('cate_id',$article->cate_id)==$cate->id? "selected":"" }}
                                                     >{{ $cate->name }}
                                             </option>
                                         @endforeach
@@ -63,7 +63,7 @@
                                 <label for="" class="col-form-label col-sm-2">文章内容</label>
                                 <div class="col-sm-10">
                                     <textarea name="contents" id="text1" cols="30" rows="10" class="form-control" style="display: none">
-                                        {!! old('contents')??$article->contents !!}
+                                        {!! old('contents',$article->contents) !!}
                                     </textarea>
                                     <div id="div1" name="contents">
 {{--                                        {!! old('contents') !!}--}}
@@ -97,7 +97,7 @@
         }
         // 或者 const editor = new E( document.getElementById('div1') )
         editor.create()
-        editor.txt.html('{!! old('contents')??$article->contents !!}')
+        editor.txt.html('{!! old('contents',$article->contents) !!}')
     </script>
 {{--    <script !src="">--}}
 {{--        Editor--}}

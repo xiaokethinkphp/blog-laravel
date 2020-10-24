@@ -73,6 +73,8 @@ class ArticleController extends Controller
      * 修改文章界面
      * @param $user
      * @param $article
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(User $user, Article $article)
     {
@@ -80,6 +82,24 @@ class ArticleController extends Controller
         $cates = Cate::all();
         return view('article.edit', compact('article', 'cates'));
     }
+
+    /**
+     * 修改文章提交
+     */
+    public function update(ArticleRequest $request, User $user, Article $article)
+    {
+        $this->authorize('update',$article);
+        $article->title = $request->title;
+        $article->user_id = auth()->id();
+        $article->cate_id = $request->cate_id;
+        $article->contents = $request->contents;
+        $article->save();
+        return redirect(route('index'));
+    }
+    /**
+     * @param User $user
+     * @param Article $article
+     */
 
     public function destory(User $user, Article $article)
     {
