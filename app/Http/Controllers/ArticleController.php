@@ -77,6 +77,8 @@ class ArticleController extends Controller
     public function edit(User $user, Article $article)
     {
         $this->authorize('editOrDestroy', $article);
+        $cates = Cate::all();
+        return view('article.edit', compact('article', 'cates'));
     }
 
     public function destory(User $user, Article $article)
