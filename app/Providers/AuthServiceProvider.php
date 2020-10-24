@@ -26,20 +26,20 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('lst', function ($user) {
-            $user_param = request()->route()->user;
-            return $user_param == $user
-                ? Response::allow()
-                : Response::deny('无法查看其它用户信息');
-        });
-
-        Gate::define('edit-or-destroy', function ($user) {
-            $user_param = request()->route()->user;
-            $article_param = request()->route()->article;
-            return ($user == $user_param && $user->id == $article_param->user_id)
-                ? Response::allow()
-                : Response::deny('无法操作该文章');
-        });
+//        Gate::define('lst', function ($user) {
+//            $user_param = request()->route()->user;
+//            return $user_param == $user
+//                ? Response::allow()
+//                : Response::deny('无法查看其它用户信息');
+//        });
+//
+//        Gate::define('edit-or-destroy', function ($user) {
+//            $user_param = request()->route()->user;
+//            $article_param = request()->route()->article;
+//            return ($user == $user_param && $user->id == $article_param->user_id)
+//                ? Response::allow()
+//                : Response::deny('无法操作该文章');
+//        });
         //
     }
 }

@@ -62,10 +62,11 @@ class ArticleController extends Controller
      */
     public function lst(User $user)
     {
-        if (Gate::authorize('lst')) {
+        $this->authorize('lst', Article::class);
+//        if (Gate::authorize('lst')) {
             $articles = $user->articles()->paginate();
             return view('article.lst', compact('articles'));
-        }
+//        }
     }
 
     /**
@@ -75,13 +76,7 @@ class ArticleController extends Controller
      */
     public function edit(User $user, Article $article)
     {
-        if (Gate::authorize('edit-or-destroy')) {
-            return 'ok';
-        } else {
-            return 'no';
-        }
-        dump($user->id);
-        dump($article->id);
+        $this->authorize('editOrDestroy', $article);
     }
 
     public function destory(User $user, Article $article)
