@@ -28,3 +28,4 @@ Route::get('user/{user}/article', 'ArticleController@lst')->middleware('auth')->
 Route::get('user/{user}/article/{article}/edit', 'ArticleController@edit')->middleware('auth')->name('article.edit');
 Route::put('user/{user}/article/{article}', 'ArticleController@update')->middleware('auth')->name('article.update');
 Route::delete('user/{user}/article/{article}', 'ArticleController@destroy')->middleware('auth')->name('article.destroy');
+Route::get('article/{article}', 'ArticleController@show')->name('article.show');

@@ -6,11 +6,14 @@ use App\Article;
 use App\Cate;
 use App\Http\Requests\ArticleRequest;
 use App\User;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class ArticleController extends Controller
 {
@@ -58,7 +61,7 @@ class ArticleController extends Controller
     /**
      * 个人文章列表
      * @param User $user
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function lst(User $user)
     {
@@ -73,8 +76,8 @@ class ArticleController extends Controller
      * 修改文章界面
      * @param $user
      * @param $article
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return Factory|View
+     * @throws AuthorizationException
      */
     public function edit(User $user, Article $article)
     {
@@ -96,14 +99,29 @@ class ArticleController extends Controller
         $article->save();
         return redirect(route('index'));
     }
+
     /**
+     * 删除文章
      * @param User $user
      * @param Article $article
+     * @throws AuthorizationException
      */
 
     public function destroy(User $user, Article $article)
     {
         $this->authorize('write', $article);
         $article->delete();
+    }
+
+    /**
+     * 文章详情
+     * @param Article $article
+     * @return Factory|View
+     */
+    public function show(Article $article)
+    {
+        $article->user;
+        $article->cate;
+        return view('article.show', compact('article'));
     }
 }

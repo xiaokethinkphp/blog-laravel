@@ -39,7 +39,7 @@
                             @foreach($articles as $article)
                                 <tr>
                                     <th scope="row">{{ $article->id }}</th>
-                                    <td><a href="" title="{{ $article->title }}">{{ Str::limit($article->title, 20) }}</a></td>
+                                    <td><a href="{{ route('article.show', $article->id) }}" title="{{ $article->title }}">{{ Str::limit($article->title, 20) }}</a></td>
                                     <td>{{ $article->cate['name'] }}</td>
                                     <td>{{ auth()->user()->name }}</td>
                                     <td>{{ $article->created_at->format('Y年m月d日') }}</td>
