@@ -18,8 +18,12 @@ class CreateArticlesTable extends Migration
             $table->string('title')->comment('文章标题');
             $table->bigInteger('user_id')->comment('文章作者');
             $table->bigInteger('cate_id')->comment('文章分类');
-            $table->text('content')->comment('文章内容');
+            $table->text('contents')->comment('文章内容');
             $table->timestamps();
+        });
+
+        Schema::table('articles', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
