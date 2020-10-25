@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,7 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home.index');
+        $articles = Article::with(['cate','user'])->paginate(4);
+        return view('home.index',compact('articles'));
     }
 
     public function hd()
