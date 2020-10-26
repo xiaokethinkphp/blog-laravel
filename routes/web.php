@@ -29,3 +29,6 @@ Route::get('user/{user}/article/{article}/edit', 'ArticleController@edit')->midd
 Route::put('user/{user}/article/{article}', 'ArticleController@update')->middleware('auth')->name('article.update');
 Route::delete('user/{user}/article/{article}', 'ArticleController@destroy')->middleware('auth')->name('article.destroy');
 Route::get('article/{article}', 'ArticleController@show')->name('article.show');
+
+Route::get('admin/index', fn()=>view('admin.index'));
+Route::get('admin/welcome', fn()=>view('admin.welcome'));

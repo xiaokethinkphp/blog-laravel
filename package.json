@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "@ckeditor/ckeditor5-build-classic": "^23.0.0",
+        "admin-lte": "^3.0.5",
         "wangeditor": "^4.0.4"
     }
 }
