@@ -32,3 +32,11 @@ Route::get('article/{article}', 'ArticleController@show')->name('article.show');
 
 Route::get('admin/index', fn()=>view('admin.index'));
 Route::get('admin/welcome', fn()=>view('admin.welcome'));
+
+Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function () {
+    Route::get('users', function() {
+        return view('admin.users');
+    });
+
+    Route::get('users/info', 'UserController@info')->name('users.info');
+});
