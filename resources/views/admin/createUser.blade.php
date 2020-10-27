@@ -12,12 +12,12 @@
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
-        <form class="layui-form layui-form-pane" action="">
+        <form class="layui-form layui-form-pane" action="" lay-filter="form">
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">用户名</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="name" autocomplete="off" class="layui-input" placeholder="请输入用户名">
+                        <input type="text" name="name" autocomplete="off" class="layui-input" placeholder="请输入用户名" lay-verify="required|username">
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -31,13 +31,13 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">密码</label>
                     <div class="layui-input-inline">
-                        <input type="password" name="password" autocomplete="off" class="layui-input" placeholder="请输入密码">
+                        <input type="password" name="password" autocomplete="off" class="layui-input" placeholder="请输入密码" lay-verify="pass">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">确认密码</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="password_confirmation" lay-verify="email" autocomplete="off" class="layui-input" placeholder="请确认密码">
+                        <input type="password" name="password_confirmation" lay-verify="pass|pass_confirm" autocomplete="off" class="layui-input" placeholder="请确认密码">
                     </div>
                 </div>
             </div>
@@ -55,7 +55,8 @@ layui.use(['form', 'layedit', 'laydate'], function () {
     var form = layui.form
             , layer = layui.layer
             , layedit = layui.layedit
-            , laydate = layui.laydate;
+            , laydate = layui.laydate
+            , $ = layui.$;
 
         //日期
         laydate.render({
@@ -70,15 +71,29 @@ layui.use(['form', 'layedit', 'laydate'], function () {
 
         //自定义验证规则
         form.verify({
-            title: function (value) {
-        if (value.length < 5) {
-            return '标题至少得5个字符啊';
-        }
-    }
+            username: function (value) {
+                if (value.length < 3) {
+                    return '用户名至少得3个字符啊';
+                }
+                if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                    return '用户名不能有特殊字符';
+                }
+                if(/(^\_)|(\__)|(\_+$)/.test(value)){
+                    return '用户名首尾不能出现下划线\'_\'';
+                }
+                if(/^\d+\d+\d$/.test(value)){
+                    return '用户名不能全为数字';
+                }
+            }
             , pass: [
                 /^[\S]{6,12}$/
                 , '密码必须6到12位，且不能出现空格'
             ]
+            , pass_confirm: function (value) {
+                if(value != $('input[name=password]').val()) {
+                    return '密码不一致'
+                }
+            }
             , content: function (value) {
         layedit.sync(editIndex);
     }
@@ -101,8 +116,9 @@ layui.use(['form', 'layedit', 'laydate'], function () {
         });
 
         //表单初始赋值
-        form.val('example', {
-            "username": "贤心" // "name": "value"
+        form.val('form', {
+            "name": "王小明" // "name": "value"
+            , "email": "wangxiaoming@qq.com"
             , "password": "123456"
             , "interest": 1
             , "like[write]": true //复选框选中状态
