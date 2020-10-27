@@ -13,6 +13,7 @@
 <div class="layuimini-container">
     <div class="layuimini-main">
         <form class="layui-form layui-form-pane" action="" lay-filter="form">
+            @csrf
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">用户名</label>
@@ -42,7 +43,7 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <button class="layui-btn" lay-submit="" lay-filter="demo2">跳转式提交</button>
+                <button class="layui-btn" lay-submit="" lay-filter="demo1">跳转式提交</button>
             </div>
         </form>
     </div>
@@ -109,9 +110,27 @@ layui.use(['form', 'layedit', 'laydate'], function () {
 
         //监听提交
         form.on('submit(demo1)', function (data) {
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
+            $.ajax({
+                url: "{{ route('api.admin.users.store') }}",
+                data: data.field,
+                type: "post",
+                success: (getData)=> {
+                    layer.alert(getData.message, {
+                        icon: 1,
+                        time:2000
+                    })
+                },
+                error: (getData)=>{
+                    console.log(getData)
+                    layer.alert(getData.responseJSON.message, {
+                        icon: 2,
+                        time:2000
+                    })
+                }
             })
+            // layer.alert(JSON.stringify(data.field), {
+            //     title: '最终的提交信息'
+            // })
             return false;
         });
 
@@ -120,11 +139,7 @@ layui.use(['form', 'layedit', 'laydate'], function () {
             "name": "王小明" // "name": "value"
             , "email": "wangxiaoming@qq.com"
             , "password": "123456"
-            , "interest": 1
-            , "like[write]": true //复选框选中状态
-            , "close": true //开关状态
-            , "sex": "女"
-            , "desc": "我爱 layui"
+            , "password_confirmation": "123456"
         })
 
 

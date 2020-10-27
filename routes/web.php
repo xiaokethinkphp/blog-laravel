@@ -30,14 +30,24 @@ Route::put('user/{user}/article/{article}', 'ArticleController@update')->middlew
 Route::delete('user/{user}/article/{article}', 'ArticleController@destroy')->middleware('auth')->name('article.destroy');
 Route::get('article/{article}', 'ArticleController@show')->name('article.show');
 
-Route::get('admin/index', fn()=>view('admin.index'));
-Route::get('admin/welcome', fn()=>view('admin.welcome'));
-
-Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function () {
-    Route::get('users', function() {
+Route::get('admin/index', function() {
+    return view('admin.index');
+});
+Route::get('admin/welcome', function() {
+    return view('admin.welcome');
+});
+/*后台用户路由*/
+Route::name('admin.')->namespace('Admin')->prefix('admin/users')->group(function () {
+    // 用户列表
+    Route::get('/', function() {
         return view('admin.users');
     });
-
-    Route::get('users/info', 'UserController@info')->name('users.info');
-    Route::get('users/create', fn()=>view('admin.createUser'))->name('users.create');
+    // 获取用户信息
+    Route::get('/info', 'UserController@info')->name('users.info');
+    // 添加用户列表
+    Route::get('/create', function() {
+        return view('admin.createUser');
+    })->name('users.create');
+    // 添加用户提交
+    Route::post('/', 'UserController@store')->name('users.store');
 });
