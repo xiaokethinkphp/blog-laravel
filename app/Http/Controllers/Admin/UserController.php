@@ -10,11 +10,9 @@ class UserController extends Controller
 {
     public function info()
     {
-        $users = User::all();
-        return [
-            'code'  =>  0,
-            'msg'   =>  '',
-            'data'  =>  $users
-        ];
+        $users = User::paginate(9)->toArray();
+        $users['status'] = 0;
+        $users['message']   =   'ok';
+        return $users;
     }
 }
