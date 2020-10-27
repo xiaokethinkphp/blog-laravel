@@ -39,4 +39,5 @@ Route::name('admin.')->namespace('Admin')->prefix('admin')->group(function () {
     });
 
     Route::get('users/info', 'UserController@info')->name('users.info');
+    Route::get('users/create', fn()=>view('admin.createUser'))->name('users.create');
 });
