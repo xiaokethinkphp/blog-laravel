@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/layui/css/public.css" media="all">
 </head>
 <body>
-<div class="layuimini-container">
+@routes<div class="layuimini-container">
     <div class="layuimini-main">
 
         <fieldset class="table-search-fieldset">
@@ -157,17 +157,17 @@
         });
 
         table.on('tool(currentTableFilter)', function (obj) {
-            var data = obj.data;
+            const data = obj.data;
             if (obj.event === 'edit') {
-
+console.log(data.id)
                 var index = layer.open({
                     title: '编辑用户',
                     type: 2,
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '../page/table/edit.html',
+                    area: ['80%', '60%'],
+                    content: '/admin/users/'+data.id+'/edit',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);

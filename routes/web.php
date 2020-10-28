@@ -37,17 +37,18 @@ Route::get('admin/welcome', function() {
     return view('admin.welcome');
 });
 /*后台用户路由*/
-Route::name('admin.')->namespace('Admin')->prefix('admin/users')->group(function () {
+Route::name('admin.users.')->namespace('Admin')->prefix('admin/users')->group(function () {
     // 用户列表
     Route::get('/', function() {
         return view('admin.users');
     });
     // 获取用户信息
-    Route::get('/info', 'UserController@info')->name('users.info');
+    Route::get('/info', 'UserController@info')->name('info');
     // 添加用户列表
     Route::get('/create', function() {
         return view('admin.createUser');
-    })->name('users.create');
+    })->name('create');
     // 添加用户提交
-    Route::post('/', 'UserController@store')->name('users.store');
+    Route::post('/', 'UserController@store')->name('store');
+    Route::get('/{user}/edit', 'UserController@edit')->name('edit');
 });

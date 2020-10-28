@@ -56,4 +56,12 @@ class UserController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    /**
+     * 显示用户编辑页面
+     */
+    public function edit(User $user)
+    {
+        return view('admin.editUser', compact('user'));
+    }
 }
