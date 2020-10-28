@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserCreateRequest;
 use App\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -20,12 +21,15 @@ class UserController extends Controller
         $users['message']   =   'ok';
         return $users;
     }
+
     /**
      * 添加用户提交
+     * @param UserCreateRequest $request
+     * @return array
      */
-    public function store(Request $request)
+    public function store(UserCreateRequest $request)
     {
-        $this->validator($request->all())->validate();
+//        $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
 

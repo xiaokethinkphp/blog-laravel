@@ -121,11 +121,19 @@ layui.use(['form', 'layedit', 'laydate'], function () {
                     })
                 },
                 error: (getData)=>{
-                    console.log(getData)
-                    layer.alert(getData.responseJSON.message, {
-                        icon: 2,
-                        time:2000
+                    console.log(getData.responseJSON.errors)
+                    $.each(getData.responseJSON.errors, function(index, element) {
+                        console.log(element)
+                        layer.alert(element[0], {
+                            icon: 2,
+                            time:2000
+                        })
+                        return false
                     })
+                    // layer.alert(getData.responseJSON.message, {
+                    //     icon: 2,
+                    //     time:2000
+                    // })
                 }
             })
             // layer.alert(JSON.stringify(data.field), {

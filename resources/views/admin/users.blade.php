@@ -138,7 +138,7 @@
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
-                    area: ['80%', '50%'],
+                    area: ['80%', '60%'],
                     content: '{{ route('admin.users.create') }}',
                 });
                 $(window).on("resize", function () {
