@@ -111,7 +111,7 @@ layui.use(['form', 'layedit', 'laydate'], function () {
         //监听提交
         form.on('submit(demo1)', function (data) {
             $.ajax({
-                url: "{{ route('api.admin.users.store') }}",
+                url: "{{ route('admin.users.store') }}",
                 data: data.field,
                 type: "post",
                 success: (getData)=> {
@@ -144,7 +144,7 @@ layui.use(['form', 'layedit', 'laydate'], function () {
 
         //表单初始赋值
         form.val('form', {
-            "name": "王小明" // "name": "value"
+            "name": "王小明"
             , "email": "wangxiaoming@qq.com"
             , "password": "123456"
             , "password_confirmation": "123456"
