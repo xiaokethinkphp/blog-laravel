@@ -90,7 +90,7 @@
                 {field: 'email_verified_at', width: 120, title: '邮箱验证', sort: true, templet: '#emailTpl'},
                 {field: 'created_at', width: 120, title: '创建时间', sort: true, templet:"<div>@{{layui.util.toDateString(d.created_at,'yyyy-MM-dd')}}</div>"},
                 {field: 'updated_at', width: 120, title: '修改时间', sort: true, templet:"<div>@{{layui.util.toDateString(d.updated_at,'yyyy-MM-dd')}}</div>"},
-                {field: 'deleted_at', width: 120, title: '删除时间', sort: true, templet:"<div>@{{layui.util.toDateString(d.deleted_at,'yyyy-MM-dd')}}</div>"},
+                {field: 'deleted_at', width: 120, title: '删除时间', sort: true, templet:"#deleted_at"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
@@ -189,6 +189,15 @@ console.log(data.id)
     是
     {{#  } else { }}
     否
+    {{#  } }}
+    @endverbatim
+</script>
+<script type="text/html" id="deletedTpl">
+    @verbatim
+    {{#  if(d.deleted_at){ }}
+    {{layui.util.toDateString(d.deleted_at,'yyyy-MM-dd')}}
+    {{#  } else { }}
+
     {{#  } }}
     @endverbatim
 </script>
