@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -59,9 +60,28 @@ class UserController extends Controller
 
     /**
      * 显示用户编辑页面
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(User $user)
     {
+        $user = $user->only(['id','name','email']);
         return view('admin.editUser', compact('user'));
     }
+
+    /**
+     * 用户修改提交
+     * @param UserCreateRequest $request
+     * @param User $user
+     * @return array
+     */
+    public function update(UserUpdateRequest $request, User $user)
+    {
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+        return ['message'=>"修改用户成功"];
+    }
+
 }
