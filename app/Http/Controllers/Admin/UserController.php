@@ -97,5 +97,17 @@ class UserController extends Controller
             'msg'   =>  '恢复成功'
         ];
     }
+    /**
+     * 删除用户
+     */
+    public function destroy($user)
+    {
+        $user = User::withTrashed()->find($user);
+        $user->trashed()? $user->forceDelete() : $user->delete();
+        return [
+            'status'    =>  '1',
+            'msg'   =>  '删除成功'
+        ];
+    }
 
 }

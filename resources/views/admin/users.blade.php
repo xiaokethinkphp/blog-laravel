@@ -6,6 +6,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="/layui/lib/layui-v2.5.5/css/layui.css" media="all">
     <link rel="stylesheet" href="/layui/css/public.css" media="all">
 </head>
@@ -73,11 +74,16 @@
 </div>
 <script src="/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
+
     layui.use(['form', 'table'], function () {
         var $ = layui.jquery,
             form = layui.form,
             table = layui.table;
-
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         table.render({
             elem: '#currentTableId',
             url: '{{ route('admin.users.info') }}',
@@ -182,8 +188,19 @@
                 });
                 return false;
             } else if (obj.event === 'delete') {
-                layer.confirm('真的删除行么', function (index) {
-                    obj.del();
+                layer.confirm('真的删除行么，已经删除的会被彻底删除', function (index) {
+
+                    $.ajax({
+                        url: "/admin/users/"+data.id,
+                        type: "delete",
+                        success:function(getData){
+                            if (getData.status == 1) {
+                                layer.alert(getData.msg, function(){
+                                    window.location.reload();
+                                })
+                            }
+                        }
+                    })
                     layer.close(index);
                 });
             } else if (obj.event === 'restore') {
