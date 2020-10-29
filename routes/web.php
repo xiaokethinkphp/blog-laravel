@@ -52,4 +52,5 @@ Route::name('admin.users.')->namespace('Admin')->prefix('admin/users')->group(fu
     Route::post('/', 'UserController@store')->name('store');
     Route::get('/{user}/edit', 'UserController@edit')->name('edit');
     Route::put('/{user}', 'UserController@update')->name('update');
+    Route::get('/{user}/restore', 'UserController@restore')->name('restore');
 });

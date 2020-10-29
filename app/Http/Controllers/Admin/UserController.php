@@ -17,7 +17,7 @@ class UserController extends Controller
     use RegistersUsers;
     public function info()
     {
-        $users = User::paginate(9)->toArray();
+        $users = User::withTrashed()->paginate(9)->toArray();
         $users['status'] = 0;
         $users['message']   =   'ok';
         return $users;
@@ -82,6 +82,20 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
         return ['message'=>"修改用户成功"];
+    }
+    /**
+     * 恢复删除
+     */
+    public function restore($user)
+    {
+        $user = User::withTrashed()->find($user);
+        if ($user->trashed()) {
+            $user->restore();
+        }
+        return [
+            'status'    =>  '1',
+            'msg'   =>  '恢复成功'
+        ];
     }
 
 }

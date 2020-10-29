@@ -62,6 +62,11 @@
         <script type="text/html" id="currentTableBar">
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+            @verbatim
+            {{#  if(d.deleted_at){ }}
+            <a class="layui-btn layui-btn-xs layui-btn-success data-count-delete" lay-event="restore">恢复</a>
+            {{#  } }}
+            @endverbatim
         </script>
 
     </div>
@@ -90,7 +95,7 @@
                 {field: 'email_verified_at', width: 120, title: '邮箱验证', sort: true, templet: '#emailTpl'},
                 {field: 'created_at', width: 120, title: '创建时间', sort: true, templet:"<div>@{{layui.util.toDateString(d.created_at,'yyyy-MM-dd')}}</div>"},
                 {field: 'updated_at', width: 120, title: '修改时间', sort: true, templet:"<div>@{{layui.util.toDateString(d.updated_at,'yyyy-MM-dd')}}</div>"},
-                {field: 'deleted_at', width: 120, title: '删除时间', sort: true, templet:"#deleted_at"},
+                {field: 'deleted_at', width: 120, title: '删除时间', sort: true, templet:"#deletedTpl"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
@@ -159,16 +164,19 @@
         table.on('tool(currentTableFilter)', function (obj) {
             const data = obj.data;
             if (obj.event === 'edit') {
-console.log(data.id)
-                var index = layer.open({
-                    title: '编辑用户',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: ['80%', '60%'],
-                    content: '/admin/users/'+data.id+'/edit',
-                });
+                if (data.deleted_at) {
+                    layer.alert('请先恢复该用户')
+                } else {
+                    var index = layer.open({
+                        title: '编辑用户',
+                        type: 2,
+                        shade: 0.2,
+                        maxmin:true,
+                        shadeClose: true,
+                        area: ['80%', '60%'],
+                        content: '/admin/users/'+data.id+'/edit',
+                    });
+                }
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
@@ -176,6 +184,20 @@ console.log(data.id)
             } else if (obj.event === 'delete') {
                 layer.confirm('真的删除行么', function (index) {
                     obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event === 'restore') {
+                layer.confirm('确认恢复么', function (index) {
+                    $.ajax({
+                        url:"/admin/users/"+data.id+"/restore",
+                        success:function(getData){
+                            if (getData.status == 1) {
+                                layer.alert(getData.msg, function(){
+                                    window.location.reload();
+                                })
+                            }
+                        }
+                    })
                     layer.close(index);
                 });
             }
