@@ -54,4 +54,5 @@ Route::name('admin.users.')->namespace('Admin')->prefix('admin/users')->group(fu
     Route::put('/{user}', 'UserController@update')->name('update');
     Route::get('/{user}/restore', 'UserController@restore')->name('restore');
     Route::delete('/{user}', 'UserController@destroy')->name('destroy');
+    Route::post('/deletes', 'UserController@deletes')->name('deletes');
 });

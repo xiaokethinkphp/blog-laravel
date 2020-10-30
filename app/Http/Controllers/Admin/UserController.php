@@ -102,12 +102,30 @@ class UserController extends Controller
      */
     public function destroy($user)
     {
-        $user = User::withTrashed()->find($user);
-        $user->trashed()? $user->forceDelete() : $user->delete();
+        $this->deleteOne($user);
         return [
             'status'    =>  '1',
             'msg'   =>  '删除成功'
         ];
+    }
+    /**
+     * 批量删除
+     */
+    public function deletes(Request $request)
+    {
+        foreach ($request->ids  as $id)
+        {
+            $this->deleteOne($id);
+        }
+        return ['status'=>1,'msg'=>'用户删除成功'];
+    }
+    /**
+     * 删除单个用户
+     */
+    public function deleteOne($user)
+    {
+        $user = User::withTrashed()->find($user);
+        $user->trashed()? $user->forceDelete() : $user->delete();
     }
 
 }

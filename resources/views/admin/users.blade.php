@@ -158,7 +158,24 @@
             } else if (obj.event === 'delete') {  // 监听删除操作
                 var checkStatus = table.checkStatus('currentTableId')
                     , data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
+                let ids = {}
+                data.map(function(v,i) {
+                    ids[i] = v.id
+                })
+                // layer.alert(JSON.stringify(data));
+                $.ajax({
+                    url: "{{ route('admin.users.deletes') }}",
+                    data: {ids:ids},
+                    type: "post",
+                    success:function(getData){
+                        if (getData.status == 1) {
+                            layer.alert(getData.msg, function(){
+                                window.location.reload();
+                            })
+                        }
+                    }
+                })
+                console.log(ids)
             }
         });
 
