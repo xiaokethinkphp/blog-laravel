@@ -18,7 +18,7 @@ class UserController extends Controller
     use RegistersUsers;
     public function info()
     {
-        $users = User::withTrashed()->paginate(9)->toArray();
+        $users = User::withTrashed()->paginate(500)->toArray();
         $users['status'] = 0;
         $users['message']   =   'ok';
         return $users;

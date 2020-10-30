@@ -105,7 +105,7 @@
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
-            limit: 9,
+            limit: 500,
             page: true,
             skin: 'line',
             parseData: function (res) {
