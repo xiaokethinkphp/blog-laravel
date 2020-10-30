@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\UserDeleted;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
@@ -125,6 +126,7 @@ class UserController extends Controller
     public function deleteOne($user)
     {
         $user = User::withTrashed()->find($user);
+        event(new UserDeleted($user));
         $user->trashed()? $user->forceDelete() : $user->delete();
     }
 
