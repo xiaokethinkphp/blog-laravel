@@ -33,6 +33,9 @@ Route::get('article/{article}', 'ArticleController@show')->name('article.show');
 Route::get('admin/index', function() {
     return view('admin.index');
 });
+Route::get('admin/login', function () {
+    return view('admin.login');
+});
 Route::get('admin/welcome', function() {
     return view('admin.welcome');
 });

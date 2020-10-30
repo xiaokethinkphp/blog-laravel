@@ -16,7 +16,7 @@
             "target": "_self",
             "child": [
                 {
-                    "title": "主页模板",
+                    "title": "管理员管理",
                     "href": "",
                     "icon": "fa fa-home",
                     "target": "_self",
@@ -40,12 +40,6 @@
                             "target": "_self"
                         }
                     ]
-                },
-                {
-                    "title": "菜单管理",
-                    "href": "page/menu.html",
-                    "icon": "fa fa-window-maximize",
-                    "target": "_self"
                 },
                 {
                     "title": "用户管理",
