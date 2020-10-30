@@ -16,9 +16,18 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     use RegistersUsers;
-    public function info()
+    public function info(Request $request)
     {
-        $users = User::withTrashed()->paginate(500)->toArray();
+        if (empty($search = $request['searchParams'])) {
+            $users = User::withTrashed()->paginate(15)->toArray();
+        } else {
+            $search = json_decode($search, true);
+            $where = [];
+            if ($search['name']) $where[] = ['name','like','%'.$search['name'].'%'];
+            if ($search['email']) $where[] = ['email','like','%'.$search['email'].'%'];
+            $users = User::withTrashed()->where($where)->paginate(15)->toArray();
+        }
+
         $users['status'] = 0;
         $users['message']   =   'ok';
         return $users;

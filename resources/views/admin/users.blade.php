@@ -22,25 +22,13 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">用户姓名</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="username" autocomplete="off" class="layui-input">
+                                <input type="text" name="name" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">用户性别</label>
+                            <label class="layui-form-label">用户邮箱</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="sex" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">用户城市</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="city" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">用户职业</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="classify" autocomplete="off" class="layui-input">
+                                <input type="text" name="email" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -95,17 +83,17 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'id', width: 50, title: 'ID', sort: true},
+                {field: 'id', width: 80, title: 'ID', sort: true},
                 {field: 'name', width: 150, title: '用户名', sort: true},
                 {field: 'email', width: 120, title: '邮箱'},
-                {field: 'email_verified_at', width: 120, title: '邮箱验证', sort: true, templet: '#emailTpl'},
+                {field: 'email_verified_at', width: 80, title: '验证', sort: true, templet: '#emailTpl'},
                 {field: 'created_at', width: 120, title: '创建时间', sort: true, templet:"<div>@{{layui.util.toDateString(d.created_at,'yyyy-MM-dd')}}</div>"},
                 {field: 'updated_at', width: 120, title: '修改时间', sort: true, templet:"<div>@{{layui.util.toDateString(d.updated_at,'yyyy-MM-dd')}}</div>"},
                 {field: 'deleted_at', width: 120, title: '删除时间', sort: true, templet:"#deletedTpl"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
-            limit: 500,
+            limit: 15,
             page: true,
             skin: 'line',
             parseData: function (res) {
@@ -121,9 +109,9 @@
         // 监听搜索操作
         form.on('submit(data-search-btn)', function (data) {
             var result = JSON.stringify(data.field);
-            layer.alert(result, {
-                title: '最终的搜索信息'
-            });
+            // layer.alert(result, {
+            //     title: '最终的搜索信息'
+            // });
 
             //执行搜索重载
             table.reload('currentTableId', {
