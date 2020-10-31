@@ -36,6 +36,8 @@ Route::get('admin/index', function() {
 Route::get('admin/login', function () {
     return view('admin.login');
 });
+
+Route::post('admin/checkLogin', 'Admin\AdminController@checkLogin')->name('admin.admin.checkLogin');
 Route::get('admin/welcome', function() {
     return view('admin.welcome');
 });
