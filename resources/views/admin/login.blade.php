@@ -45,7 +45,7 @@
         <form class="layui-form" action="">
             <div>
                 <i class="layui-icon layui-icon-username admin-icon"></i>
-                <input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input admin-input admin-input-username" value="admin">
+                <input type="text" name="name" placeholder="请输入用户名" autocomplete="off" class="layui-input admin-input admin-input-username" value="admin">
             </div>
             <div>
                 <i class="layui-icon layui-icon-password admin-icon"></i>
@@ -53,8 +53,9 @@
             </div>
             <div>
                 <input type="text" name="captcha" placeholder="请输入验证码" autocomplete="off" class="layui-input admin-input admin-input-verify" value="">
-                <img class="admin-captcha" width="90" height="30" src="{{captcha_src()}}" onclick="this.src = '{{ captcha_src() }}'+'?'+Math.random()">
+                <img class="admin-captcha" width="90" height="30" src="{{ $captcha['img'] }}">
             </div>
+            <input type="hidden" name="key" value="{{ $captcha['key'] }}">
             <button class="layui-btn admin-button" lay-submit="" lay-filter="login">登 陆</button>
         </form>
     </div>
@@ -93,11 +94,15 @@
                 url: "{{ route('admin.admin.checkLogin') }}",
                 type: "post",
                 data: data,
-                async: false
+                success:(data)=>{
+                    if(data.code === 1) {
+                        layer.msg('登录成功', function () {
+                            window.location = '{{ route('admin.index') }}';
+                        });
+                    }
+                }
             })
-            // layer.msg('登录成功', function () {
-            //     window.location = '../index.html';
-            // });
+
             return false;
         });
     });

@@ -15,7 +15,6 @@ Route::get('/', 'HomeController@index');
 
 Route::get('index', 'HomeController@index')->name('index');
 Route::get('dd', 'HomeController@hd')->middleware('verified');
-Route::get('imgs', 'HomeController@img');
 
 Auth::routes(['verify' => true]);
 
@@ -32,12 +31,10 @@ Route::get('article/{article}', 'ArticleController@show')->name('article.show');
 
 Route::get('admin/index', function() {
     return view('admin.index');
-});
-Route::get('admin/login', function () {
-    return view('admin.login');
-});
+})->name('admin.index');
+Route::get('admin/login', 'Admin\AdminController@login');
+Route::get('admin/captcha','Admin\AdminController@captcha')->name('captcha');
 
-Route::post('admin/checkLogin', 'Admin\AdminController@checkLogin')->name('admin.admin.checkLogin');
 Route::get('admin/welcome', function() {
     return view('admin.welcome');
 });
