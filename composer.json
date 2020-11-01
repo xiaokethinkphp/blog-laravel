@@ -14,7 +14,8 @@
         "laravel/horizon": "^3.0",
         "laravel/tinker": "^2.0",
         "mews/captcha": "^3.2",
-        "tightenco/ziggy": "^0.9.4"
+        "tightenco/ziggy": "^0.9.4",
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

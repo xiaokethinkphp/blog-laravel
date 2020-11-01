@@ -67,11 +67,11 @@
         var form = layui.form,
             layer = layui.layer,
             $ = layui.$;
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        })
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     }
+        // })
         // 登录过期的时候，跳出ifram框架
         if (top.location != self.location) top.location = self.location;
 
@@ -95,11 +95,9 @@
                 type: "post",
                 data: data,
                 success:(data)=>{
-                    if(data.code === 1) {
-                        layer.msg('登录成功', function () {
-                            window.location = '{{ route('admin.index') }}';
-                        });
-                    }
+                    layer.msg('登录成功', function () {
+                        window.location = '{{ route('admin.index') }}';
+                    });
                 }
             })
 

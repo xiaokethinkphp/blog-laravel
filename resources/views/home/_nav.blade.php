@@ -35,8 +35,8 @@
                     </div>
                     @else
                         @if(Route::has('register'))
-                        <li class="nav-item" onclick="logout">
-{{--                            <a class="nav-link" href="{{ route('register') }}">注册</a>--}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">注册</a>
                         </li>
                         @endif
                         <li class="nav-item">

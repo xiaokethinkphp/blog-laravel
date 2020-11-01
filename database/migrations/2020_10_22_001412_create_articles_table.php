@@ -20,6 +20,7 @@ class CreateArticlesTable extends Migration
             $table->bigInteger('cate_id')->comment('文章分类');
             $table->text('contents')->comment('文章内容');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
         Schema::table('articles', function (Blueprint $table) {
