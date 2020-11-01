@@ -95,6 +95,10 @@
                 type: "post",
                 data: data,
                 success:(data)=>{
+                    layui.data('token', {
+                        key: 'access_token'
+                        ,value: data.access_token
+                    });
                     layer.msg('登录成功', function () {
                         window.location = '{{ route('admin.index') }}';
                     });

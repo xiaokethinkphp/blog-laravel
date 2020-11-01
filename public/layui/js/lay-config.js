@@ -13,6 +13,10 @@ window.rootPath = (function (src) {
 layui.config({
     base: rootPath + "lay-module/",
     version: true,
+    request: {
+        tokenName: "access_token" //自动携带 token 的字段名（如：access_token）。可设置 false 不携带。
+    }
+
 }).extend({
     miniAdmin: "layuimini/miniAdmin", // layuimini后台扩展
     miniMenu: "layuimini/miniMenu", // layuimini菜单扩展
