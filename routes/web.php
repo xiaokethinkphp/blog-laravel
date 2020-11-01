@@ -45,15 +45,15 @@ Route::name('admin.users.')->namespace('Admin')->prefix('admin/users')->group(fu
         return view('admin.users');
     });
     // 获取用户信息
-    Route::get('/info', 'UserController@info')->name('info');
+//    Route::get('/info', 'UserController@info')->name('info');
     // 添加用户列表
     Route::get('/create', function() {
         return view('admin.createUser');
     })->name('create');
     // 添加用户提交
-    Route::post('/', 'UserController@store')->name('store');
+//    Route::post('/', 'UserController@store')->name('store');
     Route::get('/{user}/edit', 'UserController@edit')->name('edit');
-    Route::put('/{user}', 'UserController@update')->name('update');
+//    Route::put('/{user}', 'UserController@update')->name('update');
     Route::get('/{user}/restore', 'UserController@restore')->name('restore');
     Route::delete('/{user}', 'UserController@destroy')->name('destroy');
     Route::post('/deletes', 'UserController@deletes')->name('deletes');

@@ -13,7 +13,7 @@
 <div class="layuimini-container">
     <div class="layuimini-main">
         <form class="layui-form layui-form-pane" action="" lay-filter="form">
-            @csrf
+{{--            @csrf--}}
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">用户名</label>
@@ -58,7 +58,12 @@ layui.use(['form', 'layedit', 'laydate'], function () {
             , layedit = layui.layedit
             , laydate = layui.laydate
             , $ = layui.$;
-
+        $.ajaxSetup({
+            headers: {
+                // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                'Authorization': "Bearer " + layui.data('token').access_token
+            }
+        });
         //日期
         laydate.render({
             elem: '#date'
@@ -111,7 +116,7 @@ layui.use(['form', 'layedit', 'laydate'], function () {
         //监听提交
         form.on('submit(demo1)', function (data) {
             $.ajax({
-                url: "{{ route('admin.users.store') }}",
+                url: "{{ route('api.admin.users.store') }}",
                 data: data.field,
                 type: "post",
                 success: (getData)=> {

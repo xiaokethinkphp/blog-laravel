@@ -67,11 +67,11 @@
         var form = layui.form,
             layer = layui.layer,
             $ = layui.$;
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //     }
-        // })
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        })
         // 登录过期的时候，跳出ifram框架
         if (top.location != self.location) top.location = self.location;
 

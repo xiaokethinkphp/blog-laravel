@@ -69,12 +69,13 @@
             table = layui.table;
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                'Authorization': "Bearer " + layui.data('token').access_token
             }
         });
         table.render({
             elem: '#currentTableId',
-            url: '{{ route('admin.users.info') }}',
+            url: '{{ route('api.admin.users.info') }}',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -152,7 +153,7 @@
                 })
                 // layer.alert(JSON.stringify(data));
                 $.ajax({
-                    url: "{{ route('admin.users.deletes') }}",
+                    url: "{{ route('api.admin.users.deletes') }}",
                     data: {ids:ids},
                     type: "post",
                     success:function(getData){
@@ -196,7 +197,7 @@
                 layer.confirm('真的删除行么，已经删除的会被彻底删除', function (index) {
 
                     $.ajax({
-                        url: "/admin/users/"+data.id,
+                        url: "/api/admin/users/"+data.id,
                         type: "delete",
                         success:function(getData){
                             if (getData.status == 1) {
@@ -211,7 +212,7 @@
             } else if (obj.event === 'restore') {
                 layer.confirm('确认恢复么', function (index) {
                     $.ajax({
-                        url:"/admin/users/"+data.id+"/restore",
+                        url:"/api/admin/users/"+data.id+"/restore",
                         success:function(getData){
                             if (getData.status == 1) {
                                 layer.alert(getData.msg, function(){
