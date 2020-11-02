@@ -70,4 +70,6 @@ Route::name('admin.cates.')->namespace('Admin')->prefix('admin/cates')->group(fu
     Route::get('/create', function() {
         return view('admin.createCate');
     })->name('create');
+
+    Route::get('/children/{cate}', 'CatesController@getChildren')->name('children');
 });

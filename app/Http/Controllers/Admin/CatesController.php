@@ -16,4 +16,9 @@ class CatesController extends Controller
         $cates['message']  = 'ok';
         return $cates;
     }
+
+    public function getChildren(Cate $cate)
+    {
+        dump($cate->with('children.children.children')->get());
+    }
 }
