@@ -85,7 +85,7 @@
             cols: [[
                 {type: "checkbox", width: 50},
                 {field: 'id', width: 80, title: 'ID', sort: true},
-                {field: 'name', width: 150, title: '用户名', sort: true},
+                {field: 'name', width: 150, title: '名称', sort: true, templet:"#nameTpl"},
                 {field: 'created_at', width: 120, title: '创建时间', sort: true, templet:"<div>@{{layui.util.toDateString(d.created_at,'yyyy-MM-dd')}}</div>"},
                 {field: 'updated_at', width: 120, title: '修改时间', sort: true, templet:"<div>@{{layui.util.toDateString(d.updated_at,'yyyy-MM-dd')}}</div>"},
                 {field: 'deleted_at', width: 120, title: '删除时间', sort: true, templet:"#deletedTpl"},
@@ -229,11 +229,26 @@
 </script>
 <script type="text/html" id="deletedTpl">
     @verbatim
-    {{#  if(d.deleted_at){ }}
-    {{layui.util.toDateString(d.deleted_at,'yyyy-MM-dd')}}
-    {{#  } else { }}
+        {{#  if(d.deleted_at){ }}
+        {{layui.util.toDateString(d.deleted_at,'yyyy-MM-dd')}}
+        {{#  } else { }}
 
-    {{#  } }}
+        {{#  } }}
+    @endverbatim
+</script>
+<script type="text/html" id="nameTpl">
+    @verbatim
+        {{#  if(d.depth>0){ }}
+        {{#
+            const fn = function(num) {
+                return new Array(num+1).join('——');
+            };
+        }}
+        {{ "|"+fn(d.depth)+d.name }}
+        {{#  } else { }}
+        {{d.name}}
+        {{#  } }}
+
     @endverbatim
 </script>
 </body>

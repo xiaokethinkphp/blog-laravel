@@ -12,7 +12,7 @@ class CategoryController extends Controller
 {
     public function info()
     {
-        $categories = Category::get()->toFlatTree();
+        $categories = Category::withDepth()->get()->toFlatTree();
         return new CategoryCollection($categories);
     }
 
