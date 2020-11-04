@@ -58,7 +58,7 @@ Route::name('admin.users.')->namespace('Admin')->prefix('admin/users')->group(fu
     Route::delete('/{user}', 'UserController@destroy')->name('destroy');
     Route::post('/deletes', 'UserController@deletes')->name('deletes');
 });
-/*后台分类处理*/
+/*后台分类处理1*/
 Route::name('admin.cates.')->namespace('Admin')->prefix('admin/cates')->group(function () {
     // 分类首页
     Route::get('/', function () {
@@ -66,6 +66,21 @@ Route::name('admin.cates.')->namespace('Admin')->prefix('admin/cates')->group(fu
     });
     // 分类列表接口
     Route::get('/cates/info', 'CatesController@info')->name('info');
+    // 添加分类列表
+    Route::get('/create', function() {
+        return view('admin.createCate');
+    })->name('create');
+
+    Route::get('/children/{cate}', 'CatesController@getChildren')->name('children');
+});
+/*后台分类处理2*/
+Route::name('admin.categories.')->namespace('Admin')->prefix('admin/categories')->group(function () {
+    // 分类首页
+    Route::get('/', function () {
+        return view('admin.categories');
+    });
+    // 分类列表接口
+    Route::get('/categories/info', 'CategoryController@info')->name('info');
     // 添加分类列表
     Route::get('/create', function() {
         return view('admin.createCate');

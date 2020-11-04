@@ -48,8 +48,14 @@
                     "target": "_self"
                 },
                 {
-                    "title": "分类管理",
+                    "title": "分类管理1",
                     "href": "/admin/cates",
+                    "icon": "fa fa-cubes",
+                    "target": "_self"
+                },
+                {
+                    "title": "分类管理2",
+                    "href": "/admin/categories",
                     "icon": "fa fa-cubes",
                     "target": "_self"
                 },
