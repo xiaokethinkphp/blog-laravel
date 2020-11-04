@@ -14,7 +14,7 @@
 Route::get('/', 'HomeController@index');
 
 Route::get('index', 'HomeController@index')->name('index');
-Route::get('dd', 'HomeController@hd')->middleware('verified');
+Route::get('dd', 'HomeController@hd');
 
 Auth::routes(['verify' => true]);
 
