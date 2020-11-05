@@ -51,6 +51,12 @@
         <script type="text/html" id="currentTableBar">
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+            <a class="layui-btn layui-btn-xs data-count-delete" lay-event="up">
+                <i class="layui-icon">&#xe619;</i>
+            </a>
+            <a class="layui-btn layui-btn-xs layui-btn-warm data-count-delete" lay-event="down">
+                <i class="layui-icon">&#xe61a;</i>
+            </a>
             @verbatim
             {{#  if(d.deleted_at){ }}
             <a class="layui-btn layui-btn-xs layui-btn-success data-count-delete" lay-event="restore">恢复</a>
@@ -195,10 +201,24 @@
                     })
                     layer.close(index);
                 });
-            } else if (obj.event === 'restore') {
-                layer.confirm('确认恢复么', function (index) {
+            } else if (obj.event === 'up') {
+                layer.confirm('确认上移么', function (index) {
                     $.ajax({
-                        url:"/api/admin/users/"+data.id+"/restore",
+                        url:"/admin/categories/"+data.id+"/change/up",
+                        success:function(getData){
+                            if (getData.status == 1) {
+                                layer.alert(getData.msg, function(){
+                                    window.location.reload();
+                                })
+                            }
+                        }
+                    })
+                    layer.close(index);
+                });
+            }else if (obj.event === 'down') {
+                layer.confirm('确认下移么', function (index) {
+                    $.ajax({
+                        url:"/admin/categories/"+data.id+"/change/down",
                         success:function(getData){
                             if (getData.status == 1) {
                                 layer.alert(getData.msg, function(){

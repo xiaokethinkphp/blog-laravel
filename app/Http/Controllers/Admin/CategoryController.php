@@ -14,7 +14,7 @@ class CategoryController extends Controller
 {
     public function info()
     {
-        $categories = Category::withDepth()->get()->toFlatTree();
+        $categories = Category::withDepth()->defaultOrder()->get()->toFlatTree();
         return new CategoryCollection($categories);
     }
 
@@ -63,5 +63,18 @@ class CategoryController extends Controller
     {
         $category->name = $request->name;
         $category->save();
+    }
+
+    public function change(Category $category, $change)
+    {
+        if ($change=='up' || $change=='down')
+        {
+            $category->$change();
+            return [
+                'status' => 1,
+                'msg'   =>  '操作成功'
+            ];
+        }
+        return response()->json(['code'=>1]);
     }
 }

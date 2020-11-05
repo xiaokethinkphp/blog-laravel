@@ -89,5 +89,7 @@ Route::name('admin.categories.')->namespace('Admin')->prefix('admin/categories')
     Route::get('/{category}/edit', 'CategoryController@edit')->name('edit');
     // 修改分类提交
     Route::put('/{category}', 'CategoryController@update')->name('update');
+    // 上移或下移分类
+    Route::get('/{category}/change/{action}', 'CategoryController@change');
     Route::get('/children/{cate}', 'CatesController@getChildren')->name('children');
 });
