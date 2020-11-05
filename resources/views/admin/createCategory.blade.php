@@ -6,6 +6,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="/layui/lib/layui-v2.5.5/css/layui.css" media="all">
     <link rel="stylesheet" href="/layui/css/public.css" media="all">
 </head>
@@ -47,13 +48,9 @@
                             <option value="">顶级分类</option>
                             @foreach($categories as $category1)
 
-                                <option value="{{ $category1->id }}">
-                                    |——{{ $category1->name }}
-                                </option>
+                                <option value="{{ $category1->id }}">|——{{ $category1->name }}</option>
                                 @foreach($category1->children as $category2)
-                                    <option value="{{ $category2->id }}">
-                                        |————{{ $category2->name }}
-                                    </option>
+                                    <option value="{{ $category2->id }}">|————{{ $category2->name }}</option>
                                 @endforeach
                             @endforeach
                         </select>
@@ -78,26 +75,16 @@ layui.use(['form', 'layedit', 'laydate'], function () {
             , $ = layui.$;
         $.ajaxSetup({
             headers: {
-                // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                'Authorization': "Bearer " + layui.data('token').access_token
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                // 'Authorization': "Bearer " + layui.data('token').access_token
             }
         });
-        //日期
-        laydate.render({
-            elem: '#date'
-        });
-        laydate.render({
-            elem: '#date1'
-        });
-
-        //创建一个编辑器
-        var editIndex = layedit.build('LAY_demo_editor');
 
         //自定义验证规则
         form.verify({
             username: function (value) {
-                if (value.length < 3) {
-                    return '用户名至少得3个字符啊';
+                if (value.length < 2) {
+                    return '名称至少得2个字符啊';
                 }
                 if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
                     return '用户名不能有特殊字符';
@@ -109,18 +96,6 @@ layui.use(['form', 'layedit', 'laydate'], function () {
                     return '用户名不能全为数字';
                 }
             }
-            , pass: [
-                /^[\S]{6,12}$/
-                , '密码必须6到12位，且不能出现空格'
-            ]
-            , pass_confirm: function (value) {
-                if(value != $('input[name=password]').val()) {
-                    return '密码不一致'
-                }
-            }
-            , content: function (value) {
-        layedit.sync(editIndex);
-    }
         });
 
         //监听指定开关
@@ -134,7 +109,7 @@ layui.use(['form', 'layedit', 'laydate'], function () {
         //监听提交
         form.on('submit(demo1)', function (data) {
             $.ajax({
-                url: "{{ route('api.admin.users.store') }}",
+                url: "{{ route('admin.categories.store') }}",
                 data: data.field,
                 type: "post",
                 success: (getData)=> {
@@ -142,6 +117,7 @@ layui.use(['form', 'layedit', 'laydate'], function () {
                         icon: 1,
                         time:2000
                     })
+                    window.location.reload()
                 },
                 error: (getData)=>{
                     console.log(getData.responseJSON.errors)

@@ -29,4 +29,14 @@ class CategoryController extends Controller
         $categories = Category::get()->toTree();
         return view('admin.createCategory',compact('categories'));
     }
+    /**
+     * 添加分类表单提交
+     */
+    public function store(Request $request)
+    {
+        $category = new Category;
+        $category->name = $request->name;
+        if ($request->parent_id)$category->parent_id = $request->parent_id;
+        $category->save();
+    }
 }
