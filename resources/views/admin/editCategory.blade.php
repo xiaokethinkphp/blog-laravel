@@ -14,12 +14,19 @@
 <div class="layuimini-container">
     <div class="layuimini-main">
         <form class="layui-form layui-form-pane" action="" lay-filter="form">
+            <input type="hidden" name="id" value="{{ $category->id }}">
 {{--            @csrf--}}
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">分类名称</label>
                     <div class="layui-input-inline">
                         <input type="text" name="name" autocomplete="off" class="layui-input" placeholder="请输入用户名" lay-verify="required|username">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">所属分类</label>
+                    <div class="layui-input-inline">
+                        <input type="text" autocomplete="off" class="layui-input" disabled value="{{ $parent->name }}">
                     </div>
                 </div>
 {{--                <div class="layui-inline">--}}
@@ -41,21 +48,6 @@
 {{--                        </select>--}}
 {{--                    </div>--}}
 {{--                </div>--}}
-                <div class="layui-inline">
-                    <label class="layui-form-label">上级分类</label>
-                    <div class="layui-input-inline">
-                        <select name="parent_id" lay-verify="">
-                            <option value="">顶级分类</option>
-                            @foreach($categories as $category1)
-
-                                <option value="{{ $category1->id }}">|——{{ $category1->name }}</option>
-                                @foreach($category1->children as $category2)
-                                    <option value="{{ $category2->id }}">|————{{ $category2->name }}</option>
-                                @endforeach
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
             </div>
             <div class="layui-form-item">
                 <button class="layui-btn" lay-submit="" lay-filter="demo1">跳转式提交</button>
@@ -109,9 +101,9 @@ layui.use(['form', 'layedit', 'laydate'], function () {
         //监听提交
         form.on('submit(demo1)', function (data) {
             $.ajax({
-                url: "{{ route('admin.categories.store') }}",
+                url: "/admin/categories/"+data.field.id,
                 data: data.field,
-                type: "post",
+                type: "put",
                 success: (getData)=> {
                     layer.alert(getData.message, {
                         icon: 1,
@@ -143,7 +135,7 @@ layui.use(['form', 'layedit', 'laydate'], function () {
 
         //表单初始赋值
         form.val('form', {
-            "name": "王小明"
+            "name": "{{ $category->name }}"
         })
 
 

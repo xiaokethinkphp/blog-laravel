@@ -166,19 +166,15 @@
         table.on('tool(currentTableFilter)', function (obj) {
             const data = obj.data;
             if (obj.event === 'edit') {
-                if (data.deleted_at) {
-                    layer.alert('请先恢复该用户')
-                } else {
-                    var index = layer.open({
-                        title: '编辑用户',
-                        type: 2,
-                        shade: 0.2,
-                        maxmin:true,
-                        shadeClose: true,
-                        area: ['80%', '60%'],
-                        content: '/admin/users/'+data.id+'/edit',
-                    });
-                }
+                var index = layer.open({
+                    title: '编辑用户',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '/admin/categories/'+data.id+'/edit',
+                });
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
