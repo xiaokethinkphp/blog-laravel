@@ -20,4 +20,13 @@ class CategoryController extends Controller
     {
         dump($cate->with('children.children.children')->get());
     }
+    /**
+     * 添加分类页面
+     */
+    public function create()
+    {
+//        $categories = Category::withDepth()->get()->toFlatTree();
+        $categories = Category::get()->toTree();
+        return view('admin.createCategory',compact('categories'));
+    }
 }

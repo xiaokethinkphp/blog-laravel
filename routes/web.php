@@ -82,9 +82,7 @@ Route::name('admin.categories.')->namespace('Admin')->prefix('admin/categories')
     // 分类列表接口
     Route::get('/categories/info', 'CategoryController@info')->name('info');
     // 添加分类列表
-    Route::get('/create', function() {
-        return view('admin.createCate');
-    })->name('create');
+    Route::get('/create', 'CategoryController@create')->name('create');
 
     Route::get('/children/{cate}', 'CatesController@getChildren')->name('children');
 });

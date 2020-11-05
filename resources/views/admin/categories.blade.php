@@ -128,8 +128,8 @@
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
-                    area: ['80%', '60%'],
-                    content: '{{ route('admin.cates.create') }}',
+                    area: ['100%', '100%'],
+                    content: '{{ route('admin.categories.create') }}',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
