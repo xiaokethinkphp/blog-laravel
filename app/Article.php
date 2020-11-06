@@ -13,7 +13,7 @@ class Article extends Model
      */
     public function cate()
     {
-        return $this->belongsTo(Cate::class);
+        return $this->belongsTo(Category::class);
     }
     /**
      * 一篇文章属于一个用户

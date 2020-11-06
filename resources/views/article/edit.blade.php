@@ -46,11 +46,28 @@
                                 <div class="col-sm-10">
                                     <select name="cate_id" id="" class="custom-select">
                                         <option value="">——请选择分类——</option>
-                                        @foreach($cates as $cate)
-                                            <option value="{{ $cate->id }}"
-                                                    {{ old('cate_id',$article->cate_id)==$cate->id? "selected":"" }}
-                                                    >{{ $cate->name }}
+                                        {{--第一次循环--}}
+                                        @foreach($categories as $category1)
+                                            <option value="{{ $category1->id }}"
+                                                    {{ old('cate_id',$article->cate_id)==$category1->id? "selected":"" }}
+                                                    disabled
+                                                    >{{ $category1->name }}
                                             </option>
+                                            {{--第二次循环--}}
+                                            @foreach($category1->children as $category2)
+                                                <option value="{{ $category2->id }}"
+                                                    {{ old('cate_id',$article->cate_id)==$category2->id? "selected":"" }}
+                                                    disabled
+                                                >|--{{ $category2->name }}
+                                                </option>
+                                                {{--第三次循环--}}
+                                                @foreach($category2->children as $category3)
+                                                    <option value="{{ $category3->id }}"
+                                                        {{ old('cate_id',$article->cate_id)==$category3->id? "selected":"" }}
+                                                    >|----{{ $category3->name }}
+                                                    </option>
+                                                @endforeach
+                                            @endforeach
                                         @endforeach
                                     </select>
                                 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Cate;
+use App\Category;
 use App\Http\Requests\ArticleRequest;
 use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -22,8 +23,9 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $cates = Cate::all();
-        return view('article.create',compact('cates'));
+        // $cates = Cate::all();
+        $categories = Category::get()->toTree();
+        return view('article.create',compact('categories'));
     }
 
     /**
@@ -62,6 +64,7 @@ class ArticleController extends Controller
      * 个人文章列表
      * @param User $user
      * @return Factory|View
+     * @throws AuthorizationException
      */
     public function lst(User $user)
     {
@@ -82,12 +85,17 @@ class ArticleController extends Controller
     public function edit(User $user, Article $article)
     {
         $this->authorize('write', $article);
-        $cates = Cate::all();
-        return view('article.edit', compact('article', 'cates'));
+        $categories = Category::get()->toTree();
+        return view('article.edit', compact('article', 'categories'));
     }
 
     /**
      * 修改文章提交
+     * @param ArticleRequest $request
+     * @param User $user
+     * @param Article $article
+     * @return RedirectResponse|Redirector
+     * @throws AuthorizationException
      */
     public function update(ArticleRequest $request, User $user, Article $article)
     {

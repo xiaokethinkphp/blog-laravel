@@ -1,5 +1,5 @@
 @extends('home.default')
-@section('title', '写文章')
+@section('title', '个人文章列表')
 @section('header')
     @routes<header class="masthead" style="background-image: url('{{ asset('img/home-bg.jpg')}}') ;">
         <div class="overlay"></div>
