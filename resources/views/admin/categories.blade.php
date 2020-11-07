@@ -75,8 +75,8 @@
             table = layui.table;
         $.ajaxSetup({
             headers: {
-                // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                'Authorization': "Bearer " + layui.data('token').access_token
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                // 'Authorization': "Bearer " + layui.data('token').access_token
             }
         });
         table.render({
@@ -149,7 +149,7 @@
                 })
                 // layer.alert(JSON.stringify(data));
                 $.ajax({
-                    url: "{{ route('api.admin.users.deletes') }}",
+                    url: "{{ route('admin.users.deletes') }}",
                     data: {ids:ids},
                     type: "post",
                     success:function(getData){
@@ -189,7 +189,7 @@
                 layer.confirm('真的删除行么，已经删除的会被彻底删除', function (index) {
 
                     $.ajax({
-                        url: "/api/admin/users/"+data.id,
+                        url: "/admin/categories/"+data.id,
                         type: "delete",
                         success:function(getData){
                             if (getData.status == 1) {

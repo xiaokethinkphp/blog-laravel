@@ -77,4 +77,15 @@ class CategoryController extends Controller
         }
         return response()->json(['code'=>1]);
     }
+    /**
+     * 删除单个分类
+     */
+    public function destroy(Category $category)
+    {
+        $category->deleteOne($category);
+        return [
+            'status'    =>  1,
+            'msg'   =>  '分类删除成功'
+        ];
+    }
 }

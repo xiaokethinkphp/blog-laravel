@@ -17,6 +17,7 @@ class CreatCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->nestedSet();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
