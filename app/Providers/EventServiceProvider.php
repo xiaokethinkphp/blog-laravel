@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\CategoryDeleted;
 use App\Events\UserDeleted;
+use App\Listeners\CategoryDeletedListener;
 use App\Listeners\UserDeletedListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         UserDeleted::class => [
             UserDeletedListener::class
+        ],
+        CategoryDeleted::class => [
+            CategoryDeletedListener::class
         ]
     ];
 
