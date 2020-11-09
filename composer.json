@@ -9,11 +9,13 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "algolia/algoliasearch-client-php": "^2.2",
         "barryvdh/laravel-debugbar": "^3.5",
         "fideloper/proxy": "^4.0",
         "kalnoy/nestedset": "^5.0",
         "laravel/framework": "^6.18.35",
         "laravel/horizon": "^3.0",
+        "laravel/scout": "^8.4",
         "laravel/tinker": "^2.0",
         "mews/captcha": "^3.2",
         "mews/purifier": "^3.3",

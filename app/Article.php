@@ -4,10 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 class Article extends Model
 {
     use SoftDeletes;
+    use Searchable;
     /**
      * 一篇文章属于一个分类
      */
