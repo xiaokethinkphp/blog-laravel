@@ -39,7 +39,7 @@ class ArticleController extends Controller
         $article->title = $request->title;
         $article->user_id = auth()->id();
         $article->cate_id = $request->cate_id;
-        $article->contents = $request->contents;
+        $article->contents = clean($request->contents);
         $article->save();
         return redirect(route('index'));
     }

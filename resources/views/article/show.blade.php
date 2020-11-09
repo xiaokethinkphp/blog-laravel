@@ -9,7 +9,8 @@
                 <div class="post-heading">
                     <h1>{{ $article->title }}</h1>
                     <h2 class="subheading">{{ $article->cate['name'] }}</h2>
-                    <span class="meta">Posted by {{ $article->user['name'] }}
+                    <span class="meta">Posted by
+                        @if($article->user){{ $article->user['name'] }}@endif
               on {{ $article->created_at->format('F j, Y') }}</span>
                 </div>
             </div>
