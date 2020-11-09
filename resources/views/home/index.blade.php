@@ -30,7 +30,8 @@
                         </h3>
                     </a>
                     <p class="post-meta">Posted by
-                        <a href="#">{{ $article->user['name'] }}</a>
+                        <a href="#">
+                            @if($article->user){{ $article->user['name'] }}@endif</a>
                         {{ $article->created_at->format('F j, y') }}</p>
                 </div>
                 <hr>
